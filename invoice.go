@@ -137,36 +137,6 @@ type (
 	InvoiceRelationRegisters struct {
 		Data Register `json:"data"`
 	}
-
-	Register struct {
-		ID            string                 `json:"id"`
-		Type          string                 `json:"type"`
-		Attributes    *RegisterAttributes    `json:"attributes,omitempty"`
-		SelfLinks     *SelfLinks             `json:"links,omitempty"`
-		Relationships *RegisterRelationships `json:"relationships,omitempty"`
-	}
-
-	RegisterRelationships struct {
-		RegisterRelationshipOutlet RegisterRelationOutlet `json:"outlet"`
-	}
-
-	RegisterRelationOutlet struct {
-		Data Outlet `json:"data"`
-	}
-
-	Outlet struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	}
-
-	RegisterAttributes struct {
-		Name          string    `json:"name"`
-		InvoicesCount int       `json:"invoicesCount"`
-		Index         int       `json:"index"`
-		Virtual       bool      `json:"virtual"`
-		CreatedAt     time.Time `json:"createdAt"`
-		UpdatedAt     time.Time `json:"updatedAt"`
-	}
 )
 
 var _ client.Request = (*InvoiceGetAllRequest)(nil)
