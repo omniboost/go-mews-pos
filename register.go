@@ -108,8 +108,10 @@ func (r *RegisterGetRequest) Do(ctx context.Context) (*Register, error) {
 		return nil, err
 	}
 
-	if outlet, ok := outlets[resp.Data.Relationships.RegisterRelationshipOutlet.Data.ID]; ok {
-		resp.Data.Relationships.RegisterRelationshipOutlet.Data = outlet
+	if resp.Data.Relationships != nil {
+		if outlet, ok := outlets[resp.Data.Relationships.RegisterRelationshipOutlet.Data.ID]; ok {
+			resp.Data.Relationships.RegisterRelationshipOutlet.Data = outlet
+		}
 	}
 
 	return &resp.Data, nil
