@@ -18,7 +18,7 @@ type (
 		Included []Included `json:"included"`
 	}
 
-	RegisterGetAllOption func(*RegisterGetRequest)
+	RegisterGetOption func(*RegisterGetRequest)
 
 	Register struct {
 		ID            string                 `json:"id"`
@@ -64,19 +64,19 @@ type (
 	}
 )
 
-func RegisterWithIncludeOutlet() RegisterGetAllOption {
+func RegisterWithIncludeOutlet() RegisterGetOption {
 	return func(r *RegisterGetRequest) {
 		r.Include = "outlet"
 	}
 }
 
-func RegisterWithID(registerID string) RegisterGetAllOption {
+func RegisterWithID(registerID string) RegisterGetOption {
 	return func(r *RegisterGetRequest) {
 		r.RegisterID = registerID
 	}
 }
 
-func (m *MewsPosClient) NewRegisterGetAllRequest(opts ...RegisterGetAllOption) *RegisterGetRequest {
+func (m *MewsPosClient) NewRegisterGetRequest(opts ...RegisterGetOption) *RegisterGetRequest {
 	r := &RegisterGetRequest{
 		client: m,
 	}

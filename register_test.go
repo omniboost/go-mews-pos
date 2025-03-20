@@ -7,7 +7,7 @@ import (
 )
 
 func TestRegisterGetAllRequest(t *testing.T) {
-	registers, err := testClient.NewRegisterGetAllRequest(
+	registers, err := testClient.NewRegisterGetRequest(
 		RegisterWithID("c7d3104e-cebf-4fde-8456-69190c1a082b"),
 		RegisterWithIncludeOutlet(),
 	).Do(context.Background())
