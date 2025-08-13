@@ -3,10 +3,11 @@ package go_mews_pos
 import (
 	"context"
 	"errors"
-	"github.com/omniboost/go-omniboost-http-client/client"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/omniboost/go-omniboost-http-client/client"
 )
 
 type (
@@ -16,11 +17,11 @@ type (
 		PageAfter string `query:"page[after],omitempty"`
 		Include   string `query:"include,omitempty"`
 
-		CreatedAtGt   *time.Time `query:"filter[createdAtGt],omitempty"`
-		CreatedAtGtEq *time.Time `query:"filter[createdAtGteq],omitempty"`
-		CreatedAtLt   *time.Time `query:"filter[createdAtLt],omitempty"`
-		CreatedAtLtEq *time.Time `query:"filter[createdAtLteq],omitempty"`
-		RegisterIdEq  *string    `query:"filter[registerIdEq],omitempty"`
+		CreatedAtGt   *Time   `query:"filter[createdAtGt],omitempty"`
+		CreatedAtGtEq *Time   `query:"filter[createdAtGteq],omitempty"`
+		CreatedAtLt   *Time   `query:"filter[createdAtLt],omitempty"`
+		CreatedAtLtEq *Time   `query:"filter[createdAtLteq],omitempty"`
+		RegisterIdEq  *string `query:"filter[registerIdEq],omitempty"`
 	}
 
 	InvoiceGetAllRequestOption func(*InvoiceGetAllRequest)
@@ -56,6 +57,7 @@ type (
 		Register        InvoiceRelationRegisters       `json:"register"`
 		OriginalInvoice InvoiceRelationOriginalInvoice `json:"originalInvoice"`
 		InvoiceItems    InvoiceRelationInvoiceItems    `json:"invoiceItems"`
+		Order           InvoiceRelationOrder           `json:"order"`
 	}
 
 	InvoiceRelationInvoiceItems struct {
@@ -95,6 +97,16 @@ type (
 		InvoiceItemModifiers InvoiceItemRelationInvoiceItemModifiers `json:"invoiceItemModifiers"`
 	}
 
+	InvoiceRelationOrder struct {
+		Data *Order `json:"data"`
+	}
+
+	Order struct {
+		ID   string `json:"id"`
+		Type string `json:"type"`
+		//Attributes    *OrderAttributes    `json:"attributes,omitempty"`
+		//Relationships *OrderRelationships `json:"relationships,omitempty"`
+	}
 	InvoiceItemRelationProduct struct {
 		Data Product `json:"data"`
 	}
@@ -137,6 +149,21 @@ type (
 	InvoiceRelationRegisters struct {
 		Data Register `json:"data"`
 	}
+
+	ProductVariant struct {
+		ID         string                    `json:"id"`
+		Type       string                    `json:"type"`
+		Attributes *ProductVariantAttributes `json:"attributes,omitempty"`
+	}
+	ProductVariantAttributes struct {
+		RetailPriceExclTax string    `json:"retailPriceExclTax"`
+		RetailPriceInclTax string    `json:"retailPriceInclTax"`
+		RegularRetailPrice string    `json:"regularRetailPrice"`
+		SKU                string    `json:"sku"`
+		Barcode            string    `json:"barcode"`
+		CreatedAt          time.Time `json:"createdAt"`
+		UpdatedAt          time.Time `json:"updatedAt"`
+	}
 )
 
 var _ client.Request = (*InvoiceGetAllRequest)(nil)
@@ -145,7 +172,7 @@ func (r *InvoiceGetAllRequest) Method() string {
 	return http.MethodGet
 }
 func (r *InvoiceGetAllRequest) PathTemplate() string {
-	return "/api/v2/invoices"
+	return "/v1/invoices"
 }
 
 func InvoicesWithPageSize(pageSize int) InvoiceGetAllRequestOption {
@@ -192,25 +219,25 @@ func InvoicesWithRegisterIdEq(registerId string) InvoiceGetAllRequestOption {
 
 func InvoicesWithCreatedAtGt(createdAtGt time.Time) InvoiceGetAllRequestOption {
 	return func(r *InvoiceGetAllRequest) {
-		r.CreatedAtGt = &createdAtGt
+		r.CreatedAtGt = &Time{createdAtGt}
 	}
 }
 
 func InvoicesWithCreatedAtGtEq(createdAtGtEq time.Time) InvoiceGetAllRequestOption {
 	return func(r *InvoiceGetAllRequest) {
-		r.CreatedAtGtEq = &createdAtGtEq
+		r.CreatedAtGtEq = &Time{createdAtGtEq}
 	}
 }
 
 func InvoicesWithCreatedAtLt(createdAtLt time.Time) InvoiceGetAllRequestOption {
 	return func(r *InvoiceGetAllRequest) {
-		r.CreatedAtLt = &createdAtLt
+		r.CreatedAtLt = &Time{createdAtLt}
 	}
 }
 
 func InvoicesWithCreatedAtLtEq(createdAtLtEq time.Time) InvoiceGetAllRequestOption {
 	return func(r *InvoiceGetAllRequest) {
-		r.CreatedAtLtEq = &createdAtLtEq
+		r.CreatedAtLtEq = &Time{createdAtLtEq}
 	}
 }
 

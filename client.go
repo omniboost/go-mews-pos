@@ -1,8 +1,9 @@
 package go_mews_pos
 
 import (
-	"github.com/omniboost/go-omniboost-http-client/client"
 	"net/url"
+
+	"github.com/omniboost/go-omniboost-http-client/client"
 )
 
 type (
@@ -54,6 +55,13 @@ func WithApiKey(apiKey string) client.Option {
 	return client.WithApiKeyAuth(
 		"Authorization",
 		"Bearer "+apiKey,
+	)
+}
+
+func WithLegacyApiKey(apiKey string) client.Option {
+	return client.WithApiKeyAuth(
+		"X-AccessToken",
+		apiKey,
 	)
 }
 
