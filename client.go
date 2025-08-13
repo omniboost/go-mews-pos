@@ -36,8 +36,8 @@ const (
 
 var DefaultBaseURL = url.URL{
 	Scheme: "https",
-	Host:   "pos.mews-demo.com",
-	Path:   "",
+	Host:   "api.mews-demo.com",
+	Path:   "/pos",
 }
 
 func NewMewsPosClient(opts ...client.Option) *MewsPosClient {

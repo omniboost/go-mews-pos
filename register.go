@@ -93,7 +93,7 @@ func (r *RegisterGetRequest) Method() string {
 }
 
 func (r *RegisterGetRequest) PathTemplate() string {
-	return "/api/v2/registers/{{.register_id}}"
+	return "/v1/registers/{{.register_id}}"
 }
 
 func (r *RegisterGetRequest) Do(ctx context.Context) (*Register, error) {

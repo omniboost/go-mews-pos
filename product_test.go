@@ -2,16 +2,14 @@ package go_mews_pos
 
 import (
 	"context"
-	jsoniter "github.com/json-iterator/go"
 	"testing"
+
+	jsoniter "github.com/json-iterator/go"
 )
 
 func TestProductGetAllRequest(t *testing.T) {
-	products, err := testClient.NewProductGetAllRequest(
-		ProductsWithPageSize(20),
-		ProductsWithIncludeProductType(),
-		ProductsWithIncludeVariants(),
-		ProductsWithIncludeModifierSets(),
+	products, err := testClient.NewProductGetRequest(
+		ProductsWithID("123"),
 	).Do(context.Background())
 
 	if err != nil {
