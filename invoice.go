@@ -112,7 +112,7 @@ type (
 	}
 
 	InvoiceItemRelationProductVariant struct {
-		Data *ProductVariant `json:"data"`
+		Data *InvoiceItemProductVariant `json:"data"`
 	}
 
 	InvoiceItemRelationInvoiceItemModifiers struct {
@@ -150,12 +150,12 @@ type (
 		Data Register `json:"data"`
 	}
 
-	ProductVariant struct {
-		ID         string                    `json:"id"`
-		Type       string                    `json:"type"`
-		Attributes *ProductVariantAttributes `json:"attributes,omitempty"`
+	InvoiceItemProductVariant struct {
+		ID         string                               `json:"id"`
+		Type       string                               `json:"type"`
+		Attributes *InvoiceItemProductVariantAttributes `json:"attributes,omitempty"`
 	}
-	ProductVariantAttributes struct {
+	InvoiceItemProductVariantAttributes struct {
 		RetailPriceExclTax string    `json:"retailPriceExclTax"`
 		RetailPriceInclTax string    `json:"retailPriceInclTax"`
 		RegularRetailPrice string    `json:"regularRetailPrice"`
